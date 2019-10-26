@@ -1,0 +1,90 @@
+{% extends 'base.html'%}
+{% import 'macros.html' as macro%}
+
+{% block styles%}
+{{ super() }}
+
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
+{% endblock %}
+<style>
+        @import url('https://fonts.googleapis.com/css?family=Arvo&display=swap');
+
+        h2{    display: block;
+               font-family: 'Arvo', serif;
+               color: #360a70cc;
+               font-size: 40px;
+               font-weight: 1000;
+               
+             }
+             ul {
+               font-family: 'Arvo', serif;
+             }
+             .container {
+               background-image: url('/static/css/photos/timebg.jpg');
+             }
+             a{        display: block;
+                       font-family:  'Arvo', serif;
+                       color: #360a70cc;
+                       font-size: 20px;
+                       font-weight: 1000;
+                       text-align: center;
+                     }
+
+</style>
+
+{% block content %}
+
+<title> {{ title }} </title>
+
+<div class="container" style="width: 100%; padding-top: 5px; height: 100%; background-image:url('/app/static/photos/timebg.jpg')">
+
+    <div class="jumbotron" style="width: 100%; text-align:center">
+        <h2 class="pitch-header" style="font-size: 70px">
+            ONE MINUTE PITCHES
+        </h2>
+        <p>Life can get a little complicated, so much can change in 60 seconds, this pitches might just be that little nudge you need!</p>
+
+    </div>
+    <br><br><br>
+    <div class="row">
+
+        <div class="col-md-4 col-lg-4">
+            <h2 class="pitch-create">
+                <a href="/pitch/new">
+                    Create New Pitch
+                </a>
+            </h2>
+
+        </div>
+
+    </div>
+    <hr>
+
+    <ul class="list-unstyled">
+
+        {{ macro.displayPitchList(pitches) }}
+
+
+    </ul>
+    <div class="row">
+        <h2 class="pitch-header" style="padding-left: 200px">
+            COMMENTS
+        </h2>
+
+    </div>
+    <ul class="list-unstyled">
+
+
+        {{ macro.displayCommentList(comments) }}
+
+    </ul>
+
+
+
+    <hr>
+
+
+</div>
+
+
+{% endblock %}

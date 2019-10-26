@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+<div class="col-md-2 col-lg-2">
+
+</div>
+
+</div>
+
+
+
+
+<div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 well pitch-well">
+
+    <li class="text-center">
+        <h2>{{pitches.title}}</h2>
+        <h2>{{pitches.description}}</h2>
+        <a href="/pitch_review/{{pitches.id}}?like=1">Like: {{pitches.like}}</a>
+        <a href="/pitch_review/{{pitches.id}}?dislike=1">Dislike: {{pitches.dislike}}</a>
+    </li>
+
+</div>
+
+<div class="col-md-2 col-lg-2">
+
+</div>
+
+</div>
+{% endblock %}
