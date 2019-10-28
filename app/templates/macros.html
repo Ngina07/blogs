@@ -1,7 +1,7 @@
 {% macro displayBlogList(blogs) %}
 
 
-{% for blog in bolgs %}
+{% for blog in blogs %}
 <div class="row" style="padding-right: 900px; padding-left: 25px">
 
     <div class="col-md-2 col-lg-2">
@@ -15,9 +15,8 @@
             <h3>{{blog.description}}</h3>
             <a href="/blog_vote/{{blog.id}}?like=1">Like: {{blog.like}}</a>
             <a href="/blog_vote/{{blog.id}}?dislike=1">Dislike: {{blog.dislike}}</a>
-            <h3 class="comment-create">
-                <a href="{{url_for('main.new_comment')}}">Add Comment</a>
-            </h3>
+            
+
         </li>
 
     </div>
@@ -30,3 +29,5 @@
 
 {% endfor %}
 {% endmacro %}
+
+

@@ -18,7 +18,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     Blogs = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
-    Comments = db.relationship('Comments', backref='user', lazy='dynamic')
+    Comments = db.relationship('Comment', backref='user', lazy='dynamic')
     pass_secure = db.Column(db.String(225))
 
 
@@ -50,7 +50,7 @@ class Blog(db.Model):
     description=db.Column(db.String)
     like = db.Column(db.Integer)
     dislike = db.Column(db.Integer)
-    comments_id =db.Column(db.Integer,db.ForeignKey("comments.id"))
+    comment = db.relationship('Comment',backref='blog',lazy='dynamic')
 
     def save_blog(self):
         db.session.add(self)
@@ -65,7 +65,7 @@ class Blog(db.Model):
 
         return blogs
 
-class Comments(db.Model):
+class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String(10000))
@@ -75,3 +75,12 @@ class Comments(db.Model):
     def save_comments(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_comments(cls):
+        '''
+        gets comments from the database
+        '''
+        comments=Comment.query.all()
+
+        return comments

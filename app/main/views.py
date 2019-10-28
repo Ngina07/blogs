@@ -1,18 +1,21 @@
 from flask import render_template,redirect,url_for,request,abort
 from flask_login import login_required,login_user,logout_user,current_user
 from . import main
-from app.models import User,Blog
-from .forms import BlogForm,UpdateProfile
+from app.models import User,Blog,Comment
+from app.requests import get_quotes
+from .forms import BlogForm,UpdateProfile,CommentForm
 from .. import db,photos
 
 @main.route('/')
 def index():
     title = 'Home'
 
+    quotes = get_quotes
     blogs = Blog.get_blogs()
     
+    
 
-    return render_template('index.html' ,title=title, blogs=blogs )
+    return render_template('index.html' ,title=title, blogs=blogs, quote = quotes)
 
 @main.route('/blog/new',methods=['GET','POST'])
 @login_required
@@ -74,3 +77,13 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route("/comment/<int:comment_id>", methods=['GET', 'POST'])
+def comment(comment_id):
+    '''
+    Method to add comment to blog post
+    '''
+    comment = Comment.query.get_or_404(comment_id)
+    
+    return render_template('new_comment.html', title='Comment', comment=comment)
+

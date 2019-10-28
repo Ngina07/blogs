@@ -4,14 +4,14 @@
 {% block styles%}
 {{ super() }}
 
-<link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
+<!-- <link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}"> -->
 {% endblock %}
 
 {% block content %}
 
 <title> {{ title }} </title>
 
-<div class="container" style="width: 100%; padding-top: 5px; height: 100%; background-image:url('/app/static/photos/timebg.jpg')">
+<div class="container">
 
     <div class="jumbotron" style="width: 100%; text-align:center">
         <h2 class="blog-header" style="font-size: 70px">
@@ -41,3 +41,8 @@
 
 
     </ul>
+
+    <h4>A quote by:{{quote.author}}</h4>
+
+    <p class="card-text">{{quote.quote}}</p>
+    {% endblock %}
