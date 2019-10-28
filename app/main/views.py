@@ -89,7 +89,7 @@ def update_pic(uname):
 
 @main.route('/blog/<blog_id>/update',methods=['GET','POST'])
 @login_required
-def updateblog(blog_id):
+def update_blog(blog_id):
     blog = Blog.query.get(blog_id)
     if blog.user != current_user:
         abort(404)
@@ -106,3 +106,16 @@ def updateblog(blog_id):
         form.name.data = blog.name
         form.description.data = blog.description
     return render_template('blog.html',blog_form = form)
+
+@main.route('/blog/<blog_id>/delete', methods=['POST'])
+@login_required
+def delete_blog(blog_id):
+    blog = Blog.query.get(blog_id)
+    if blog.user != current_user:
+        abort(403)
+    db.session.delete(blog)
+    db.session.commit()
+
+    flash('You have deleted your Blog succesfully')
+    return redirect(url_for('main.index'))
+    
