@@ -78,12 +78,31 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
-@main.route("/comment/<int:comment_id>", methods=['GET', 'POST'])
-def comment(comment_id):
-    '''
-    Method to add comment to blog post
-    '''
-    comment = Comment.query.get_or_404(comment_id)
+# @main.route("/comment/<int:comment_id>", methods=['GET', 'POST'])
+# def comment(comment_id):
+#     '''
+#     Method to add comment to blog post
+#     '''
+#     comment = Comment.query.get_or_404(comment_id)
     
-    return render_template('new_comment.html', title='Comment', comment=comment)
+#     return render_template('new_comment.html', title='Comment', comment=comment)
 
+@main.route('/blog/<blog_id>/update',methods=['GET','POST'])
+@login_required
+def updateblog(blog_id):
+    blog = Blog.query.get(blog_id)
+    if blog.user != current_user:
+        abort(404)
+
+    form = BlogForm()
+    if form.validate_on_submit():
+        blog.name= form.name.data
+        blog.description = form.description.data
+        db.session.commit()
+        flash('You have updated your Blog')
+
+        return redirect(url_for('main.index',id=blog_id))
+    if request.method == 'GET':
+        form.name.data = blog.name
+        form.description.data = blog.description
+    return render_template('blog.html',blog_form = form)
