@@ -1,0 +1,32 @@
+{% macro displayBlogList(blogs) %}
+
+
+{% for blog in bolgs %}
+<div class="row" style="padding-right: 900px; padding-left: 25px">
+
+    <div class="col-md-2 col-lg-2">
+
+    </div>
+
+    <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 well blog-well" style="width: 1500px">
+
+        <li class="text-center">
+            <h2>{{blog.name}}</h2>
+            <h3>{{blog.description}}</h3>
+            <a href="/blog_vote/{{blog.id}}?like=1">Like: {{blog.like}}</a>
+            <a href="/blog_vote/{{blog.id}}?dislike=1">Dislike: {{blog.dislike}}</a>
+            <h3 class="comment-create">
+                <a href="{{url_for('main.new_comment')}}">Add Comment</a>
+            </h3>
+        </li>
+
+    </div>
+
+    <div class="col-md-2 col-lg-2">
+
+    </div>
+
+</div>
+
+{% endfor %}
+{% endmacro %}
