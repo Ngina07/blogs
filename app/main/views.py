@@ -119,3 +119,11 @@ def delete_blog(blog_id):
     flash('You have deleted your Blog succesfully')
     return redirect(url_for('main.index'))
     
+@main.route('/comment/<blog_id>',methods=['GET','POST'])
+
+def comment(blog_id):
+    blog = Blog.query.get(blog_id)
+    comment = request.form.get('newcomment')
+    new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id=blog_id)
+    new_comment.save_comment()
+    return redirect(url_for('main.blog',id= blog.id))
