@@ -10,7 +10,7 @@ from .. import db,photos
 def index():
     title = 'Home'
 
-    quotes = get_quotes
+    quotes = get_quotes()
     blogs = Blog.get_blogs()
     
     
@@ -124,6 +124,21 @@ def delete_blog(blog_id):
 def comment(blog_id):
     blog = Blog.query.get(blog_id)
     comment = request.form.get('newcomment')
-    new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id=blog_id)
+    new_comment = Comment(comment = comment, blog_id=blog_id,user_id= current_user._get_current_object())
     new_comment.save_comment()
-    return redirect(url_for('main.blog',id= blog.id))
+    return redirect(url_for('main.blog',blog_id= blog.id))
+# @main.route('/comment/<blog_id>',methods=['GET','POST'])
+
+# def comment(blog_id):
+#     blog = Blog.query.get(blog_id)
+#     comment = request.form.get('newcomment')
+#     new_comment = Comment(comment = comment, user_id = current_user._get_current_object().id, blog_id=blog_id)
+#     print( current_user._get_current_object().id,'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa`')
+#     new_comment.save_comment()
+#     return redirect(url_for('main.blog',id= blog.id))
+
+@main.route('/post/<id>')
+def comm(id):
+    post_comm = Comment.get_comment(id)
+
+    return render_template('blog.html' ,post_comm=post_comm)

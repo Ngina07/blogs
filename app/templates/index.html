@@ -41,8 +41,26 @@
 
 
     </ul>
+    <div class="row">
+        <h2 class="pitch-header" style="padding-left: 200px">
+            COMMENTS
+        </h2>
 
-    <h4>A quote by:{{quote.author}}</h4>
+    </div>
+    <ul class="list-unstyled">
 
-    <p class="card-text">{{quote.quote}}</p>
-    {% endblock %}
+
+        {{ macro.displayCommentList(comments) }}
+
+    </ul>
+
+
+
+    <hr>
+
+
+</div>
+<h4>A quote by:{{quote.author}}</h4>
+
+<p class="card-text">{{quote.quote}}</p>
+{% endblock %}

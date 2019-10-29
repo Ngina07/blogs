@@ -17,8 +17,8 @@ class User(UserMixin,db.Model):
     email=db.Column(db.String(255),unique=True,index = True)
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    Blogs = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
-    Comments = db.relationship('Comment', backref='user', lazy='dynamic')
+    blogs = db.relationship('Blog', backref = 'user', lazy = 'dynamic')
+    comments = db.relationship('Comment', backref='user', lazy='dynamic')
     pass_secure = db.Column(db.String(225))
 
 
@@ -72,7 +72,6 @@ class Comment(db.Model):
     comment = db.Column(db.String(255))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-
 
     def save_comment(self):
         db.session.add(self)
