@@ -1,31 +1,32 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-    <title> {{ title }} </title>
+<title> {{ title }} </title>
 
-    <div class="container">
-        
-        <div class="row">
+<div class="container">
 
-            <div class="col-md-2 col-lg-2">
+    <div class="row">
 
-            </div>
-
-            <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 create-group">
-            
-                {{ wtf.quick_form(blog_form) }}
-
-            </div>
-
-            <div class="col-md-2 col-lg-2">
-                <div class="row">
-                    <h3>Comments</h3>
-                    {% for comm in post_comm %}
-                    <p>{{ comm.comment }}</p>
-                                    </div>
-
-            </div>
+        <div class="col-md-2 col-lg-2">
 
         </div>
+
+        <div class=" col-xs-12 col-sm-12 col-md-8 col-lg-8 create-group">
+
+            {{ wtf.quick_form(blog_form) }}
+
+        </div>
+
+        <!-- <div class="col-md-2 col-lg-2">
+            <div class="row">
+                <h3>Comments</h3>
+                {% for comm in post_comm %}
+                <p>{{ comm.comment }}</p>
+                {% endfor %}
+            </div>
+
+        </div> -->
+
     </div>
+</div>
 {% endblock %}

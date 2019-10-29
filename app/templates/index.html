@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% import 'macros.html' as macro%}
+
 
 {% block styles%}
 {{ super() }}
@@ -24,41 +24,35 @@
     <div class="row">
 
         <div class="col-md-4 col-lg-4">
-            <h2 class="blog-create">
-                <a href="/blog/new">
-                    Write your own blog post.
-                </a>
-            </h2>
-
+            <h2 class="blog-create"> <a href="/blog/new"> Write your own blog post.</a></h2>
         </div>
 
-    </div>
-    <hr>
-
-    <ul class="list-unstyled">
-
-        {{ macro.displayBlogList(blogs) }}
-
-
-    </ul>
+    </div>  
+</div>
+<div class="container">
     <div class="row">
-        <h2 class="pitch-header" style="padding-left: 200px">
-            COMMENTS
-        </h2>
-
+     <div class="col-md-6">
+            {% for blog in blogs %}
+            <div class="card">
+                <div class="card-haeder">{{ blog.name }}</div>
+                <p class="card-title">{{blog.description}}</p>
+                <div class="card-footer">
+                        <a href="/blog_vote/{{blog.id}}?like=1">Like: {{blog.like}}</a>
+                        <a href="/blog_vote/{{blog.id}}?dislike=1">Dislike: {{blog.dislike}}</a>
+                        <button> <a href="{{url_for('main.comment', blog_id = blog.id)}}">Add Comment</a></button>
+                        <button> <a href="{{url_for('main.post', blog_id = blog.id)}}">View Comment</a></button>
+                        {% if current_user.is_authenticated %}
+                        <div>
+                           
+                          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('main.update_blog', blog_id=blog.id) }}">Update</a>
+                          <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                        </div>
+                      {% endif %}
+                </div>
+            </div>
+            {% endfor%}
+     </div>
     </div>
-    <ul class="list-unstyled">
-
-
-        {{ macro.displayCommentList(comments) }}
-
-    </ul>
-
-
-
-    <hr>
-
-
 </div>
 <h4>A quote by:{{quote.author}}</h4>
 

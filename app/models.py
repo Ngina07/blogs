@@ -81,9 +81,10 @@ class Comment(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def get_comment(self,id):
-        comment = Comment.query.all(id=id)
-        return comment
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(blog_id=id).all()
+        return comments
 
     def __repr__(self):
         return f'Comment {self.comment}'
