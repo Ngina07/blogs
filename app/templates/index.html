@@ -4,57 +4,66 @@
 {% block styles%}
 {{ super() }}
 
-<!-- <link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}"> -->
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
 {% endblock %}
 
 {% block content %}
 
-<title> {{ title }} </title>
+<body style="background-color: darksalmon">
 
-<div class="container">
 
-    <div class="jumbotron" style="width: 100%; text-align:center">
-        <h2 class="blog-header" style="font-size: 70px">
-            BLOG.ME
-        </h2>
-        <p></p>
 
-    </div>
-    <br><br><br>
-    <div class="row">
+    <title> {{ title }} </title>
 
-        <div class="col-md-4 col-lg-4">
-            <h2 class="blog-create"> <a href="/blog/new"> Write your own blog post.</a></h2>
+    <div class="container">
+
+        <div class="jumbotron" style="width: 100%; text-align:center; background-color:rgb(243, 172, 148)">
+            <h2 class="blog-header" style="font-size: 70px">
+                <strong>BLOG.ME</strong>
+            </h2>
+            
+            <h4 class="card-text"><strong>A brainy Quote for you :</strong> <em >{{quote.quote}}</em></h4>
+            <h5>~{{quote.author}}</h5>
+            <p></p>
+
         </div>
+        <br><br><br>
+        <div class="row">
 
-    </div>  
-</div>
-<div class="container">
-    <div class="row">
-     <div class="col-md-6">
-            {% for blog in blogs %}
-            <div class="card">
-                <div class="card-haeder">{{ blog.name }}</div>
-                <p class="card-title">{{blog.description}}</p>
-                <div class="card-footer">
+            <div class="col-md-4 col-lg-4">
+                <h2 class="blog-create"> <a href="/blog/new"> Write your own blog post.</a></h2>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" style="font-size: 15px" >
+                {% for blog in blogs %}
+                <div class="card" style="background-color:rgb(230, 194, 182); margin-top: 10px; width: 800px;">
+                    <div class="card-header" style="font-size: 30px; margin-left:10px;">{{ blog.name }}</div>
+                    <p class="card-title" style="font-size: 25px; margin-left:10px;">{{blog.description}}</p>
+                    <div class="card-footer">
                         <a href="/blog_vote/{{blog.id}}?like=1">Like: {{blog.like}}</a>
                         <a href="/blog_vote/{{blog.id}}?dislike=1">Dislike: {{blog.dislike}}</a>
-                        <button> <a href="{{url_for('main.comment', blog_id = blog.id)}}">Add Comment</a></button>
+                        <button style="margin-bottom: 10px"> <a href="{{url_for('main.comment', blog_id = blog.id)}}">Add Comment</a></button>
                         <button> <a href="{{url_for('main.post', blog_id = blog.id)}}">View Comment</a></button>
                         {% if current_user.is_authenticated %}
                         <div>
-                           
-                          <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('main.update_blog', blog_id=blog.id) }}">Update</a>
-                          <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                        </div>
-                      {% endif %}
-                </div>
-            </div>
-            {% endfor%}
-     </div>
-    </div>
-</div>
-<h4>A quote by:{{quote.author}}</h4>
 
-<p class="card-text">{{quote.quote}}</p>
+                            <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                                href="{{ url_for('main.update_blog', blog_id=blog.id) }}">Update</a>
+                            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal"
+                                data-target="#deleteModal">Delete</button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div>
+    </div>
+
+</body>
+
 {% endblock %}
