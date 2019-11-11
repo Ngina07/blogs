@@ -3,7 +3,7 @@
 #### By : Phillis Ngina Njoroge
 
 ### Description
-Blogs is an app where users register and sign in and are able to view, add, comment on blogs.Access the live [here](https://blogs101.herokuapp.com)
+Blogs is an app where users register and sign in and are able to view, add, comment on blogs.Access the live [here](https://blogme101.herokuapp.com)
 
 ## BDD
 
